@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h2>User Info</h2>
+<br><br>
+
+<form th:action="@{/user/saveUser}" th:object="${user}" method="post">
+    <input type="hidden" th:field="*{id}" />
+
+    <div>
+        Username: <input type="text" th:field="*{username}"/>
+    </div>
+    <br><br>
+    <div>
+        Password: <input type="password" th:field="*{password}"/>
+    </div>
+    <br><br>
+    <div>
+        Age: <input type="number" th:field="*{age}"/>
+    </div>
+    <br><br>
+    <input type="submit" value="OK"/>
+</form>
+</body>
+</html>
