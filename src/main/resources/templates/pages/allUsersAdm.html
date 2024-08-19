@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>Admin panel</title>
+    <link rel="icon" href="image/favicon.ico" type="image/x-icon">
     <script src="/webjars/jquery/3.6.0/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
@@ -16,6 +17,7 @@
             flex:1;
         }
     </style>
+
 </head>
 <body>
 <!--Верхняя навигационная панель-->
@@ -23,9 +25,12 @@
     <div class="container-fluid">
          <span class="navbar-text">
                 <h5 class="text-white bg-dark">
-<!--                    <strong th:text="${thisUser.getUsername()}"></strong>-->
+
+
+                    <strong th:text="${currentUser.username}"></strong>
                     with roles:
-<!--                    <tr th:each="role : ${thisUser.getUsername()}" th:text="${role.toString()}"></tr>-->
+                   <tr th:each="role : ${currentUser.roles}" th:text="${role.name}"></tr>
+
 </h5>
             </span>
         <form class="form-signin" method="get" action="/logout">
@@ -119,7 +124,7 @@
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <form th:action="@{admin/updateUser}" th:object="${user}"
+                                                                <form th:action="@{admin/edit/{id}(id=${user.id})}" th:object="${user}"
                                                                       th:method="POST">
 
                                                                     <div class="mx-auto text-center"
@@ -135,13 +140,13 @@
                                                                         </div>
 
                                                                         <div class="form-group">
-                                                                            <label for="usernameEdit"
+                                                                            <label for="firstNameEdit"
                                                                                    class="form-label">
                                                                                 <strong>First name</strong></label>
                                                                             <input type="text" class="form-control"
-                                                                                   id="usernameEdit"
-                                                                                   name="username"
-                                                                                   th:value="${user.getFirstName()}">
+                                                                                   id="firstNameEdit"
+                                                                                   name="firstName"
+                                                                                   th:value="${user.firstName}">
                                                                         </div>
 
                                                                         <div class="form-group">
@@ -190,7 +195,7 @@
                                                                                     multiple="multiple" id="roleEdit">
                                                                                 <option th:each="role : ${roles}"
                                                                                         th:value="${role.id}"
-                                                                                        th:text="${role.toString()}"></option>
+                                                                                        th:text="${role.name}"></option>
                                                                             </select>
                                                                         </div>
                                                                     </div>
@@ -326,7 +331,7 @@
                                                 <label for="firstName" class="form-label"><strong>First
                                                     name</strong></label>
                                                 <input type="text" class="form-control" id="firstName"
-                                                       th:field="*{username}" placeholder="First name">
+                                                       th:field="*{firstName}" placeholder="First name">
                                             </div>
 
                                             <div class="form-group">
@@ -399,12 +404,12 @@
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td><p th:text="${thisUser.getId()}"/></td>
-                                    <td><p th:text="${thisUser.getFirstName()}"/></td>
-                                    <td><p th:text="${thisUser.getLastName()}"/></td>
-                                    <td><p th:text="${thisUser.getAge()}"/></td>
-                                    <td><p th:text="${thisUser.getEmail()}"/></td>
-                                    <td><p th:each="role : ${thisUser.getRoles()}" th:text="${role.toString()}"></p>
+                                    <td><p th:text="${currentUser.getId()}"/></td>
+                                    <td><p th:text="${currentUser.getFirstName()}"/></td>
+                                    <td><p th:text="${currentUser.getLastName()}"/></td>
+                                    <td><p th:text="${currentUser.getAge()}"/></td>
+                                    <td><p th:text="${currentUser.getEmail()}"/></td>
+                                    <td><p th:each="role : ${currentUser.getRoles()}" th:text="${role.toString()}"></p>
                                     </td>
                                 </tr>
                                 </tbody>

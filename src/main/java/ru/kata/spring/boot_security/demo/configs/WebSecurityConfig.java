@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
+import javax.swing.*;
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -27,11 +29,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/admin/**").hasRole("ADMIN") //если пользователь пошел в сторону /админ у него должна быть роль АДМИН
-                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")// могут зайти как юзер так и админ
-                .anyRequest().authenticated()//должна быть аунтентификация
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+                .anyRequest()
+                .authenticated()
                 .and()
-                .formLogin().usernameParameter("email")
+                .formLogin()
+                .usernameParameter("email")
                 .successHandler(successUserHandler)
                 .permitAll()
                 .and()
@@ -54,18 +58,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         return provider;
     }
-
-    // аутентификация inMemory
-//    @Bean
-//    @Override
-//    public UserDetailsService userDetailsService() {
-//        UserDetails user =
-//                User.withDefaultPasswordEncoder()
-//                        .username("user")
-//                        .password("user")
-//                        .roles("USER")
-//                        .build();
-//
-//        return new InMemoryUserDetailsManager(user);
-//    }
 }

@@ -21,7 +21,7 @@ public class UserController {
     @GetMapping
     public String showUser(Principal principal, Model model) {
         User newUser = userService.loadUserByUsername(principal.getName());
-        model.addAttribute("user", newUser);
+        model.addAttribute("thisUser", newUser);
         return "/user";
     }
 }

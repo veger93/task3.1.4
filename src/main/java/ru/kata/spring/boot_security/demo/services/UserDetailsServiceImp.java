@@ -23,6 +23,6 @@ public class UserDetailsServiceImp implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException(String.format("No user found with username '%s'", username));
         }
-        return new  org.springframework.security.core.userdetails.User(user.getFirstName(),user.getPassword(),user.getAuthorities());
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.getAuthorities());
     }
 }
